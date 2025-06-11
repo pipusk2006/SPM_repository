@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-5" style="text-align: center; font-family: 'Roboto', 'Helvetica', sans-serif; font-size: 16px; color: #333333;">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
@@ -9,12 +9,12 @@
                     <h2 class="text-center">Вход</h2>
                 </div>
                 <div class="card-body">
-                    <form method="post">
+                    <form method="post" style="text-align: center;">
                         {% csrf_token %}
                         {% for field in form %}
-                            <div class="form-group">
-                                {{ field.label_tag }}
-                                {{ field }}
+                            <div class="form-group" style="margin-bottom: 15px;">
+                                {{ field.label_tag }}<br>
+                                {{ field }}<br>
                                 {% if field.help_text %}
                                     <small class="form-text text-muted">{{ field.help_text }}</small>
                                 {% endif %}
@@ -23,11 +23,11 @@
                                 {% endfor %}
                             </div>
                         {% endfor %}
-                        <button type="submit" class="btn btn-primary btn-block">Войти</button>
+                        <button type="submit" class="btn btn-primary btn-block" style="display: inline-block; padding: 15px 40px; background-color: #5b6261; color: #FFFFFF; text-decoration: none; border-radius: 5px; margin-top: 20px; font-family: 'Roboto', 'Helvetica', sans-serif; width: 100%;">Войти</button>
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <p>Нет аккаунта? <a href="{% url 'accounts:register' %}">Зарегистрироваться</a></p>
+                    <p>Нет аккаунта? <a href="{% url 'accounts:register' %}" style="color: #333333; text-decoration: none;">Зарегистрироваться</a></p>
                 </div>
             </div>
         </div>
