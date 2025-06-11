@@ -9,17 +9,18 @@ project_root = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(project_root))
 from ML_models.model import RandomForestModel
 
-def home():
-    return 
+def home(request):
+    return render(request, 'accounts/home.html')
 
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            # Profile creation is handled by the signal in models.py
             login(request, user)
             messages.success(request, 'Регистрация успешна!')
-            return redirect('profile')
+            return redirect('accounts:profile')
     else:
         form = UserRegistrationForm()
     return render(request, 'accounts/register.html', {'form': form})
@@ -31,7 +32,7 @@ def profile(request):
         if profile_form.is_valid():
             profile_form.save()
             messages.success(request, 'Профиль успешно обновлен!')
-            return redirect('profile')
+            return redirect('accounts:profile')
     else:
         profile_form = ProfileUpdateForm(instance=request.user.profile)
     
