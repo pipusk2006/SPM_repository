@@ -3,8 +3,12 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserRegistrationForm, ProfileUpdateForm
+#from 'C:\Users\HONOR\Desktop\school 21\SPM_development\SPM_repository\ML models' import RandomForestModel
 
 # Create your views here.
+
+def home():
+    return 
 
 def register(request):
     if request.method == 'POST':
