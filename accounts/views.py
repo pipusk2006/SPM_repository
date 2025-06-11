@@ -3,9 +3,11 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserRegistrationForm, ProfileUpdateForm
-#from 'C:\Users\HONOR\Desktop\school 21\SPM_development\SPM_repository\ML models' import RandomForestModel
-
-# Create your views here.
+import sys
+from pathlib import Path
+project_root = Path(__file__).resolve().parent.parent.parent  
+sys.path.append(str(project_root))
+from ML_models.model import RandomForestModel
 
 def home():
     return 
