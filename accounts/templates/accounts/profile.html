@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="text-center">Профиль пользователя</h2>
+                    <h2>Профиль пользователя</h2>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -21,17 +21,17 @@
                                 {% csrf_token %}
                                 {% for field in profile_form %}
                                     <div class="form-group">
-                                        {{ field.label_tag }}
-                                        {{ field }}
+                                        {{ field.label_tag }}<br>
+                                        {{ field }}<br>
                                         {% if field.help_text %}
                                             <small class="form-text text-muted">{{ field.help_text }}</small>
                                         {% endif %}
                                         {% for error in field.errors %}
-                                            <div class="alert alert-danger">{{ error }}</div>
+                                            <div class="alert">{{ error }}</div>
                                         {% endfor %}
                                     </div>
                                 {% endfor %}
-                                <button type="submit" class="btn btn-primary">Обновить профиль</button>
+                                <button type="submit" class="custom-btn">Обновить профиль</button>
                             </form>
                         </div>
                     </div>
@@ -40,4 +40,4 @@
         </div>
     </div>
 </div>
-{% endblock %} 
+{% endblock %}
