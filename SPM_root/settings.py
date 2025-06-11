@@ -26,10 +26,17 @@ SECRET_KEY = 'django-insecure-rc^*w^w&6g9_(uvx#6s*bnt!w)l0rdi%!l7mv#y%uc&x%wo5pk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*.railway.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'server-production-45d9.up.railway.app',
+    'localhost',
+    '127.0.0.1'
+]
 
 # FORM SUBMISSION
-CSRF_TRUSTED_ORIGINS = ['https://*.railway.app']
+CSRF_TRUSTED_ORIGINS = [
+    'https://server-production-45d9.up.railway.app',
+    'http://server-production-45d9.up.railway.app'
+]
 
 # Application definition
 
