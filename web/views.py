@@ -11,3 +11,6 @@ def about(request):
 
 def input_data(request):
     return render(request, 'web/input_data.html')
+
+def login(request):
+    return render(request, 'login.html')
