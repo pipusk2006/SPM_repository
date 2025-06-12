@@ -14,12 +14,12 @@
             </h1>
             <nav>
                 <ul>
-                    {% if user.is_authenticated %}
-                        <li><a href="#">Профиль</a></li>
+                     {% if user.is_authenticated %}
+                        <li><a href="{% url 'web:profile' %}">Профиль</a></li>
                         <li><a href="#">Выход</a></li>
                     {% else %}
-                        <li><a href="#">Вход</a></li>
-                        <li><a href="#">Регистрация</a></li>
+                        <li><a href="{% url 'web:login' %}">Вход</a></li>
+                        <li><a href="{% url 'web:register' %}">Регистрация</a></li>
                     {% endif %}
                 </ul>
             </nav>
