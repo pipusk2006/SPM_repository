@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="input-data-page">
+    <section class="page-header">
+        <h1>Анализ риска инсульта</h1>
+        <!-- Прогресс -->
+        <div class="progress-indicator"></div>
+    </section>
+
+    <section class="data-input-form">
+        <form method="POST" action="{% url 'web:input_data' %}">
+            {% csrf_token %}
+            
+            <!-- Демография -->
+            <div class="form-section demographics">
+                <h2>Демографические данные</h2>
+                <div class="form-fields"></div>
+            </div>
+
+            <!-- Медицина -->
+            <div class="form-section medical">
+                <h2>Медицинские показатели</h2>
+                <div class="form-fields"></div>
+            </div>
+
+            <!-- Образ жизни -->
+            <div class="form-section lifestyle">
+                <h2>Образ жизни</h2>
+                <div class="form-fields"></div>
+            </div>
+
+            <!-- История болезни -->
+            <div class="form-section medical-history">
+                <h2>История болезни</h2>
+                <div class="form-fields"></div>
+            </div>
+
+            <div class="form-controls">
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Подсказки -->
+    <section class="help-section"></section>
+</div>
+{% endblock %} 

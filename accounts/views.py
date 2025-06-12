@@ -9,9 +9,6 @@ project_root = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(project_root))
 from ML_models.model import RandomForestModel
 
-def home(request):
-    return render(request, 'accounts/home.html')
-
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
