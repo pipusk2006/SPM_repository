@@ -12,7 +12,7 @@ header {
     color: #FFFFFF;
     text-align: center;
     padding: 20px 0;
-    border-bottom: 1px solid #E0E0E0; /* Добавлена серая линия снизу */
+    border-bottom: 1px solid #E0E0E0;
 }
 
 header h1 {
@@ -89,6 +89,7 @@ main {
 
 .form-group {
     margin-bottom: 15px;
+    text-align: left;
 }
 
 button.custom-btn {
@@ -105,7 +106,7 @@ button.custom-btn {
 }
 
 button.custom-btn:hover {
-    background-color: #4d5352; /* Более темный оттенок при наведении */
+    background-color: #4d5352;
 }
 
 a {
@@ -123,7 +124,7 @@ footer {
     text-align: center;
     padding: 10px 0;
     margin-top: auto;
-    border-top: 1px solid #E0E0E0; /* Добавлена серая линия сверху */
+    border-top: 1px solid #E0E0E0;
 }
 
 .alert {
@@ -133,4 +134,45 @@ footer {
     padding: 10px;
     border-radius: 5px;
     margin-top: 10px;
+}
+
+h2, h4 {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+p {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+strong {
+    font-weight: bold;
+}
+
+select, input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #E0E0E0;
+    border-radius: 5px;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    font-size: 16px;
+}
+
+small.form-text {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+li {
+    margin-bottom: 10px;
 }

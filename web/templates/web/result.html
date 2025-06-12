@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Результат анализа</h2>
+                </div>
+                <div class="card-body">
+                    <h4>Вероятность инсульта</h4>
+                    <p><strong>Вероятность:</strong> {{ probability }}%</p>
+                    <p>На основе введенных данных модель Random Forest оценила ваш риск инсульта.</p>
+
+                    <h4>Рекомендации</h4>
+                    <ul>
+                        {% if hypertension == 1 %}
+                            <li><strong>Гипертония:</strong> Рекомендуется регулярно измерять давление и проконсультироваться с врачом для контроля.</li>
+                        {% else %}
+                            <li><strong>Гипертония:</strong> Поддерживайте здоровый образ жизни для предотвращения развития гипертонии.</li>
+                        {% endif %}
+                        {% if smoking_status == "smokes" or smoking_status == "formerly smoked" %}
+                            <li><strong>Курение:</strong> Рассмотрите возможность отказа от курения или снижение количества сигарет для снижения риска.</li>
+                        {% else %}
+                            <li><strong>Курение:</strong> Продолжайте избегать курения, это снижает риск инсульта.</li>
+                        {% endif %}
+                        {% if bmi > 25 %}
+                            <li><strong>Индекс массы тела (BMI):</strong> Ваш BMI выше нормы (>25). Рекомендуется сбалансированная диета и физическая активность.</li>
+                        {% else %}
+                            <li><strong>Индекс массы тела (BMI):</strong> Ваш BMI в норме. Поддерживайте здоровый вес.</li>
+                        {% endif %}
+                        {% if age > 50 %}
+                            <li><strong>Возраст:</strong> С возрастом риск увеличивается. Регулярные обследования помогут вовремя выявить проблемы.</li>
+                        {% endif %}
+                        {% if avg_glucose_level > 100 %}
+                            <li><strong>Уровень глюкозы:</strong> Высокий уровень глюкозы (>100 мг/дл). Обратитесь к врачу для проверки на диабет.</li>
+                        {% endif %}
+                    </ul>
+
+                    <div style="margin-top: 20px;">
+                        <a href="{% url 'web:home' %}" class="custom-btn">Вернуться на главную</a>
+                        <a href="{% url 'web:profile' %}" class="custom-btn" style="margin-left: 10px;">Перейти в профиль</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

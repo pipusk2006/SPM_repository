@@ -11,4 +11,5 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),  # Убедимся, что этот путь есть
     path('profile/', views.profile, name='profile'),
+    path('logout/', views.logout_view, name='logout')  # Требуется представление logout_view
 ]
