@@ -1,0 +1,136 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    color: #333333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #333333;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #E0E0E0; /* Добавлена серая линия снизу */
+}
+
+header h1 {
+    margin: 0;
+}
+
+header h1 span:first-child {
+    font-size: 36px;
+}
+
+header h1 span:last-child {
+    font-size: 18px;
+}
+
+nav {
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+.container {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.row {
+    margin: 0;
+}
+
+.col-md-6 {
+    padding: 0;
+    text-align: center;
+}
+
+.card {
+    border: 1px solid #E0E0E0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: #F5F5F5;
+    padding: 15px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+button.custom-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    background-color: #5b6261;
+    color: #FFFFFF;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    cursor: pointer;
+    width: 100%;
+}
+
+button.custom-btn:hover {
+    background-color: #4d5352; /* Более темный оттенок при наведении */
+}
+
+a {
+    color: #333333;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    background-color: #333333;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: auto;
+    border-top: 1px solid #E0E0E0; /* Добавлена серая линия сверху */
+}
+
+.alert {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
