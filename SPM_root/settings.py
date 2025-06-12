@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts.apps.AccountsConfig',
     'web.apps.WebConfig',
 ]
 
@@ -142,9 +141,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Auth settings
-LOGIN_REDIRECT_URL = 'accounts:profile'
-LOGOUT_REDIRECT_URL = 'accounts:login'
-LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'web:profile'
+LOGOUT_REDIRECT_URL = 'web:login'
+LOGIN_URL = 'web:login'
 
 # Messages settings
 from django.contrib.messages import constants as messages
