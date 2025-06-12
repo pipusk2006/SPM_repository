@@ -9,6 +9,5 @@ def home(request):
 def about(request):
     return render(request, 'web/about.html')
 
-@login_required
 def input_data(request):
     return render(request, 'web/input_data.html')
