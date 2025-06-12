@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 import numpy as np
 from ML_models.model import RandomForestModel
+from django.contrib import messages
 
 # Create your views here.
 
@@ -14,6 +15,16 @@ def about(request):
 def input_data(request):
     if request.method == "POST":
         try:
+            # Проверяем наличие всех необходимых полей
+            required_fields = ['gender', 'smoking_status', 'age', 'work_type', 
+                             'Residence_type', 'hypertension', 'avg_glucose_level', 
+                             'bmi', 'ever_married', 'heart_disease']
+            
+            for field in required_fields:
+                if field not in request.POST:
+                    raise KeyError(f'Поле {field} отсутствует в форме')
+
+            # Получаем и преобразуем данные
             gender = request.POST['gender']
             smoking_status = request.POST['smoking_status']
             age = float(request.POST['age'])
@@ -41,9 +52,15 @@ def input_data(request):
                 'avg_glucose_level': avg_glucose_level,
             }
             return render(request, 'web/result.html', context)
+        except KeyError as e:
+            messages.error(request, f'Ошибка в форме: {str(e)}')
+            return render(request, 'web/input_data.html')
+        except ValueError as e:
+            messages.error(request, 'Пожалуйста, проверьте правильность введенных числовых значений')
+            return render(request, 'web/input_data.html')
         except Exception as e:
-            context = {'error': str(e)}
-            return render(request, 'web/input_data.html', context)
+            messages.error(request, f'Произошла ошибка: {str(e)}')
+            return render(request, 'web/input_data.html')
             
     return render(request, 'web/input_data.html')
 
