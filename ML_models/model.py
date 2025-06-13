@@ -15,8 +15,12 @@ import kagglehub
 df_train = pd.read_csv("ML_models/train(43).csv")
 
 # Загрузка дополнительного датасета с Kaggle (если нужно)
-path = kagglehub.dataset_download("fedesoriano/stroke-prediction-dataset")
-df_kaggle = pd.read_csv(f"{path}/healthcare-dataset-stroke-data.csv")
+try:
+    path = kagglehub.model_download("fedesoriano/stroke-prediction-dataset")
+    df_kaggle = pd.read_csv(f"{path}/healthcare-dataset-stroke-data.csv")
+except:
+    print("Не удалось загрузить дополнительный датасет с Kaggle")
+    df_kaggle = None
 
 # Используем df_train как основной
 df = df_train.copy()
