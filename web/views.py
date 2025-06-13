@@ -51,7 +51,6 @@ def profile(request):
 def input_data(request):
     if request.method == 'POST':
         try:
-            # Получаем данные из формы
             gender = request.POST.get('gender')
             age = float(request.POST.get('age'))
             hypertension = int(request.POST.get('hypertension'))
@@ -63,7 +62,6 @@ def input_data(request):
             bmi = float(request.POST.get('bmi'))
             smoking_status = request.POST.get('smoking_status')
 
-            # Создаем запись в базе данных
             input_data = InputData.objects.create(
                 user=request.user,
                 gender=gender,
@@ -78,13 +76,11 @@ def input_data(request):
                 smoking_status=smoking_status
             )
 
-            # Получаем предсказание от модели
             prediction = get_model_prediction(
                 gender, age, hypertension, heart_disease, ever_married,
                 work_type, Residence_type, avg_glucose_level, bmi, smoking_status
             )
 
-            # Сохраняем результат
             input_data.prediction = prediction
             input_data.save()
 

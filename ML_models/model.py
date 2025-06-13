@@ -12,7 +12,7 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 import kagglehub
 
 # Загрузка локального датасета
-df_train = pd.read_csv("train(43).csv")
+df_train = pd.read_csv("ML_model/train(43).csv")
 
 # Загрузка дополнительного датасета с Kaggle (если нужно)
 path = kagglehub.dataset_download("fedesoriano/stroke-prediction-dataset")
@@ -47,7 +47,6 @@ mice_imputer = IterativeImputer(random_state=42)
 numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns.drop('stroke')
 df[numeric_cols] = mice_imputer.fit_transform(df[numeric_cols])
 
-# Разделение на признаки и целевую переменную
 X = df.drop(columns=['stroke'])
 y = df['stroke']
 
@@ -83,7 +82,6 @@ import joblib
 
 def RandomForestModel(gender, age, hypertension, heart_disease, ever_married,
                       work_type, Residence_type, avg_glucose_level, bmi, smoking_status):
-    # Загрузка модели и скейлера (один раз при первом вызове)
     if not hasattr(RandomForestModel, "rf_model"):
         RandomForestModel.rf_model = joblib.load("random_forest_stroke_model.pkl")
         RandomForestModel.scaler = joblib.load("scaler.pkl")
@@ -91,7 +89,6 @@ def RandomForestModel(gender, age, hypertension, heart_disease, ever_married,
     rf_model = RandomForestModel.rf_model
     scaler = RandomForestModel.scaler
 
-    # Преобразование входных значений
     gender = 1 if gender == 'Male' else 0
     ever_married = 1 if ever_married == 'Yes' else 0
     Residence_type = 1 if Residence_type == 'Urban' else 0
@@ -109,7 +106,6 @@ def RandomForestModel(gender, age, hypertension, heart_disease, ever_married,
     if work_type_col in work_type_encoded:
         work_type_encoded[work_type_col] = 1
 
-    # Формирование входного DataFrame
     input_data = {
         'gender': gender,
         'age': age,
