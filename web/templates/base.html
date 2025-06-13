@@ -26,9 +26,13 @@
         </header>
         <main>
             {% if messages %}
-                {% for message in messages %}
-                    <div>{{ message }}</div>
-                {% endfor %}
+                <div class="container mt-3">
+                    <div class="message-container">
+                        {% for message in messages %}
+                            <div class="alert">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
             {% endif %}
             {% block content %}
             {% endblock %}
