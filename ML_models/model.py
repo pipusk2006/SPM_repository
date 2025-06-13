@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import os
+import joblib
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
 from sklearn.preprocessing import StandardScaler
@@ -7,11 +9,21 @@ from imblearn.combine import SMOTETomek
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
-import os
+import kagglehub
 
-# Загрузка данных из локального файла
-current_dir = os.path.dirname(os.path.abspath(__file__))
-df = pd.read_csv(os.path.join(current_dir, "train(43).csv"))
+# Загрузка локального датасета
+df_train = pd.read_csv("train(43).csv")
+
+# Загрузка дополнительного датасета с Kaggle (если нужно)
+path = kagglehub.dataset_download("fedesoriano/stroke-prediction-dataset")
+df_kaggle = pd.read_csv(f"{path}/healthcare-dataset-stroke-data.csv")
+
+# Используем df_train как основной
+df = df_train.copy()
+
+# Удаление столбца id
+if 'id' in df.columns:
+    df = df.drop(columns=['id'])
 
 # Преобразование категориальных признаков
 df['gender'] = df['gender'].map({'Male': 1, 'Female': 0})
@@ -55,29 +67,49 @@ X_resampled, y_resampled = sampler.fit_resample(X_train_scaled, y_train)
 rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
 rf_model.fit(X_resampled, y_resampled)
 
+# Оценка модели
+y_pred = rf_model.predict(X_test_scaled)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred))
+
+# Сохранение модели
+joblib.dump(rf_model, "random_forest_stroke_model.pkl")
+joblib.dump(scaler, "scaler.pkl")
+
+
+import pandas as pd
+import joblib
+
 def RandomForestModel(gender, age, hypertension, heart_disease, ever_married,
                       work_type, Residence_type, avg_glucose_level, bmi, smoking_status):
-    # 1. Преобразование категориальных признаков
+    # Загрузка модели и скейлера (один раз при первом вызове)
+    if not hasattr(RandomForestModel, "rf_model"):
+        RandomForestModel.rf_model = joblib.load("random_forest_stroke_model.pkl")
+        RandomForestModel.scaler = joblib.load("scaler.pkl")
+
+    rf_model = RandomForestModel.rf_model
+    scaler = RandomForestModel.scaler
+
+    # Преобразование входных значений
     gender = 1 if gender == 'Male' else 0
     ever_married = 1 if ever_married == 'Yes' else 0
     Residence_type = 1 if Residence_type == 'Urban' else 0
 
-    # Курение: 0 = никогда не курил, 0.5 = курил раньше, 1 = курит
     smoking_status_map = {
         'never smoked': 0,
         'formerly smoked': 0.5,
         'smokes': 1
     }
-    smoking_status = smoking_status_map.get(smoking_status, 0)  # по умолчанию 0
+    smoking_status = smoking_status_map.get(smoking_status, 0)
 
-    # One-hot encoding для work_type
     work_type_cols = ['work_Govt_job', 'work_Never_worked', 'work_Private', 'work_Self-employed', 'work_children']
     work_type_encoded = dict.fromkeys(work_type_cols, 0)
     work_type_col = f'work_{work_type}'
     if work_type_col in work_type_encoded:
         work_type_encoded[work_type_col] = 1
 
-    # 2. Формирование DataFrame с одним наблюдением
+    # Формирование входного DataFrame
     input_data = {
         'gender': gender,
         'age': age,
@@ -93,11 +125,10 @@ def RandomForestModel(gender, age, hypertension, heart_disease, ever_married,
 
     input_df = pd.DataFrame([input_data])
 
-    # 3. Преобразование признаков
+    # Масштабирование
     input_scaled = scaler.transform(input_df)
 
-    # 4. Предсказание вероятности положительного класса
+    # Предсказание
     prob = rf_model.predict_proba(input_scaled)[0][1]
-
-    # 5. Вернуть вероятность в процентах
     return round(prob * 100, 2)
+
