@@ -1,31 +1,19 @@
 import pandas as pd
-import kagglehub
+import numpy as np
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
 from sklearn.preprocessing import StandardScaler
 from imblearn.combine import SMOTETomek
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+import os
 
-# 1. Load datasets
-df_train = pd.read_csv("train(43).csv")
-path = kagglehub.dataset_download("fedesoriano/stroke-prediction-dataset")
-df_kaggle = pd.read_csv(f"{path}/healthcare-dataset-stroke-data.csv")
+# Загрузка данных из локального файла
+current_dir = os.path.dirname(os.path.abspath(__file__))
+df = pd.read_csv(os.path.join(current_dir, "train(43).csv"))
 
-# 2. Add 'stroke' column to df_test if not present
-if 'stroke' not in df_kaggle.columns:
-    df_kaggle['stroke'] = None  # (In this case, Kaggle data already has 'stroke')
-
-# 3. Align columns in both dataframes
-common_cols = list(set(df_train.columns) | set(df_kaggle.columns))
-df_train = df_train.reindex(columns=common_cols)
-df_kaggle = df_kaggle.reindex(columns=common_cols)
-
-# 4. Concatenate dataframes
-df = pd.concat([df_train, df_kaggle], ignore_index=True)
-
-# 5. Convert categorical features to numeric codes
+# Преобразование категориальных признаков
 df['gender'] = df['gender'].map({'Male': 1, 'Female': 0})
 df['ever_married'] = df['ever_married'].map({'Yes': 1, 'No': 0})
 df['Residence_type'] = df['Residence_type'].map({'Urban': 1, 'Rural': 0})
@@ -35,50 +23,40 @@ df['smoking_status'] = df['smoking_status'].map({
     'smokes': 1
 })
 
-# 6. One-hot encode the work_type feature
+# One-hot encoding для work_type
 df = pd.get_dummies(df, columns=['work_type'], prefix='work')
 
-# 7. Remove any rows without a stroke label
+# Удаление строк без метки stroke
 df = df[df['stroke'].notna()]
 df['stroke'] = df['stroke'].astype(int)
 
-# 8. Impute missing numeric values using IterativeImputer (MICE)
+# Импутация пропущенных значений
 mice_imputer = IterativeImputer(random_state=42)
 numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns.drop('stroke')
 df[numeric_cols] = mice_imputer.fit_transform(df[numeric_cols])
 
-# 9. Train-test split (80/20)
+# Разделение на признаки и целевую переменную
 X = df.drop(columns=['stroke'])
 y = df['stroke']
+
+# Разделение на обучающую и тестовую выборки
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# 10. Feature scaling
+# Масштабирование признаков
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# 11. Balance the training set using SMOTE + Tomek Links
+# Балансировка обучающей выборки
 sampler = SMOTETomek(random_state=42)
 X_resampled, y_resampled = sampler.fit_resample(X_train_scaled, y_train)
 
-from sklearn.ensemble import RandomForestClassifier
-
+# Обучение модели
 rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
 rf_model.fit(X_resampled, y_resampled)
 
-y_pred_rf = rf_model.predict(X_test_scaled)
-print("📊 Accuracy:", accuracy_score(y_test, y_pred_rf))
-print("\n🧩 Confusion Matrix:\n", confusion_matrix(y_test, y_pred_rf))
-print("\n📋 Classification Report:\n", classification_report(y_test, y_pred_rf, digits=4))
-
-
-
-
 def RandomForestModel(gender, age, hypertension, heart_disease, ever_married,
                       work_type, Residence_type, avg_glucose_level, bmi, smoking_status):
-    import numpy as np
-    import pandas as pd
-
     # 1. Преобразование категориальных признаков
     gender = 1 if gender == 'Male' else 0
     ever_married = 1 if ever_married == 'Yes' else 0
@@ -115,7 +93,7 @@ def RandomForestModel(gender, age, hypertension, heart_disease, ever_married,
 
     input_df = pd.DataFrame([input_data])
 
-    # 3. Преобразование признаков (импутация не нужна — пользователь должен передать полные значения)
+    # 3. Преобразование признаков
     input_scaled = scaler.transform(input_df)
 
     # 4. Предсказание вероятности положительного класса
