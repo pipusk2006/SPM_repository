@@ -3,9 +3,8 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
 from .models import Profile, InputData
+from .forms import UserRegistrationForm, ProfileUpdateForm
 
 # Импортируем модель только когда она нужна
 def get_model_prediction(*args):
@@ -19,25 +18,6 @@ def home(request):
 
 def about(request):
     return render(request, 'web/about.html')
-
-class UserRegistrationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-    
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2')
-    
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.email = self.cleaned_data['email']
-        if commit:
-            user.save()
-        return user
-
-class ProfileUpdateForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['date_of_birth', 'phone_number']
 
 def register(request):
     if request.method == 'POST':
