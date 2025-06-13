@@ -100,6 +100,10 @@ main > div {
     text-align: left;
 }
 
+.form-group.text-center {
+    text-align: center;
+}
+
 button.custom-btn {
     display: inline-block;
     padding: 15px 40px;
