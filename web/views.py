@@ -102,7 +102,12 @@ def result(request, pk):
         input_data = InputData.objects.get(pk=pk, user=request.user)
         context = {
             'input_data': input_data,
-            'prediction': input_data.prediction
+            'probability': input_data.prediction,
+            'hypertension': input_data.hypertension,
+            'smoking_status': input_data.smoking_status,
+            'bmi': input_data.bmi,
+            'age': input_data.age,
+            'avg_glucose_level': input_data.avg_glucose_level
         }
         return render(request, 'web/result.html', context)
     except InputData.DoesNotExist:
