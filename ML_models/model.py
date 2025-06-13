@@ -12,7 +12,7 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 import kagglehub
 
 # Загрузка локального датасета
-df_train = pd.read_csv("train(43).csv")
+df_train = pd.read_csv("ML_models/train(43).csv")
 
 # Загрузка дополнительного датасета с Kaggle (если нужно)
 path = kagglehub.dataset_download("fedesoriano/stroke-prediction-dataset")
