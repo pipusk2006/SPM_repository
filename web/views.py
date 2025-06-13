@@ -92,7 +92,13 @@ def input_data(request):
         except Exception as e:
             messages.error(request, f'Произошла ошибка: {str(e)}')
             return redirect('web:input_data')
-    return render(request, 'web/input_data.html')
+    
+    # Получаем последний результат пользователя
+    last_result = InputData.objects.filter(user=request.user).order_by('-created_at').first()
+    context = {
+        'last_result': last_result
+    }
+    return render(request, 'web/input_data.html', context)
 
 @login_required
 def result(request, pk):

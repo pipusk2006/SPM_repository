@@ -89,7 +89,14 @@
                         </div>
                         <button type="submit" class="custom-btn">Отправить</button>
                     </form>
-                    <a href="{% url 'web:result' %}" class="custom-btn" style="margin-top: 20px;">Перейти к результатам</a>
+                    {% if last_result %}
+                        <div class="mt-3">
+                            <p class="text-muted">Ваш последний анализ:</p>
+                            <a href="{% url 'web:result' pk=last_result.pk %}" class="custom-btn">Посмотреть последний результат</a>
+                        </div>
+                    {% else %}
+                        <p class="mt-3 text-muted">После отправки формы вы будете перенаправлены на страницу с результатами анализа.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
