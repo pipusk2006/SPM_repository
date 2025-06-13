@@ -55,6 +55,14 @@ nav ul li a:hover {
 main {
     flex: 1;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+main > div {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
 }
 
 .container {
