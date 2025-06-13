@@ -22,7 +22,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('web.urls')),  # Основные страницы сайта
-    path('accounts/', include('accounts.urls')),  # URL-ы для работы с аккаунтами
 ]
 
 if settings.DEBUG:
