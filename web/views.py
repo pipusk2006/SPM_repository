@@ -115,6 +115,8 @@ def result(request, pk):
         return redirect('web:input_data')
 
 def logout_view(request):
-    logout(request)
-    messages.success(request, 'Вы успешно вышли из аккаунта!')
-    return redirect('web:home')
+    if request.method == 'POST':
+        logout(request)
+        messages.success(request, 'Вы успешно вышли из аккаунта!')
+        return redirect('web:home')
+    return render(request, 'web/logout.html')
