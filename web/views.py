@@ -25,7 +25,6 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, 'Регистрация успешна!')
             return redirect('web:profile')
     else:
         form = UserRegistrationForm()
