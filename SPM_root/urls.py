@@ -22,7 +22,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('web.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 # Добавляем статические файлы только в режиме отладки
