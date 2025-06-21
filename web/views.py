@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -113,3 +113,8 @@ def result(request, pk):
     except InputData.DoesNotExist:
         messages.error(request, 'Запись не найдена')
         return redirect('web:input_data')
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'Вы успешно вышли из аккаунта!')
+    return redirect('web:home')
