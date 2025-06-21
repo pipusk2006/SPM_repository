@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Анализ риска инсульта</title>
-        <link rel="stylesheet" href="/static/web/css/web.css">
+        <link rel="stylesheet" href="/static/web/web.css">
     </head>
     <body>
         <header>
@@ -14,9 +14,10 @@
             </h1>
             <nav>
                 <ul>
+                    <li><a href="{% url 'web:home' %}">Главное меню</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'web:profile' %}">Профиль</a></li>
-                        <li><a href="#">Выход</a></li>
+                        <li><a href="{% url 'web:logout' %}">Выход</a></li>
                     {% else %}
                         <li><a href="{% url 'web:login' %}">Вход</a></li>
                         <li><a href="{% url 'web:register' %}">Регистрация</a></li>
