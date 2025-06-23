@@ -5,10 +5,10 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import Profile, InputData
 from .forms import UserRegistrationForm, ProfileUpdateForm
+from ML_models.model import RandomForestModel
 
 # Импортируем модель только когда она нужна
 def get_model_prediction(*args):
-    from ML_models.model import RandomForestModel
     return RandomForestModel(*args)
 
 # Create your views here.
