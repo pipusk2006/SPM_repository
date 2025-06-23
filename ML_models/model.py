@@ -32,6 +32,13 @@ def RandomForestModel(
     model_c2 = joblib.load(os.path.join(model_dir, 'model_c2.pkl'))
     model_c3 = joblib.load(os.path.join(model_dir, 'model_c3.pkl'))
     model_final_corr = joblib.load(os.path.join(model_dir, 'model_final_corr.pkl'))
+    # Проверка на корректную загрузку моделей
+    assert scaler is not None, "❌ Scaler не загружен — проверь scaler.pkl"
+    assert hasattr(scaler, 'transform'), "❌ Scaler не имеет метода transform"
+
+    assert main is not None, "❌ Main модель не загружена"
+    assert hasattr(main, 'predict_proba'), "❌ Main модель не имеет метода predict_proba"
+
 
     # Категориальные преобразования
     map_bin = {
