@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -25,7 +25,6 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, 'Регистрация успешна!')
             return redirect('web:profile')
     else:
         form = UserRegistrationForm()
@@ -102,9 +101,21 @@ def result(request, pk):
         input_data = InputData.objects.get(pk=pk, user=request.user)
         context = {
             'input_data': input_data,
-            'prediction': input_data.prediction
+            'probability': input_data.prediction,
+            'hypertension': input_data.hypertension,
+            'smoking_status': input_data.smoking_status,
+            'bmi': input_data.bmi,
+            'age': input_data.age,
+            'avg_glucose_level': input_data.avg_glucose_level
         }
         return render(request, 'web/result.html', context)
     except InputData.DoesNotExist:
         messages.error(request, 'Запись не найдена')
         return redirect('web:input_data')
+
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        messages.success(request, 'Вы успешно вышли из аккаунта!')
+        return redirect('web:home')
+    return render(request, 'web/logout.html')

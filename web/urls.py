@@ -11,7 +11,7 @@ urlpatterns = [
     path('input_data/', views.input_data, name='input_data'),
     path('result/<int:pk>/', views.result, name='result'),
     
-    # Аутентификация
+       # Аутентификация
     path('register/', views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(
         template_name='web/login.html',
@@ -19,6 +19,7 @@ urlpatterns = [
     ), name='login'),
     path('profile/', views.profile, name='profile'),
     path('logout/', auth_views.LogoutView.as_view(
+        template_name='web/logout.html',
         next_page='web:home'
     ), name='logout'),
 ]

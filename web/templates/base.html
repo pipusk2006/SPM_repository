@@ -14,9 +14,15 @@
             </h1>
             <nav>
                 <ul>
+                    <li><a href="{% url 'web:home' %}">Главное меню</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'web:profile' %}">Профиль</a></li>
-                        <li><a href="#">Выход</a></li>
+                        <li>
+                            <form action="{% url 'web:logout' %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="custom-btn" style="padding: 5px 15px; width: auto; margin: 0;">Выход</button>
+                            </form>
+                        </li>
                     {% else %}
                         <li><a href="{% url 'web:login' %}">Вход</a></li>
                         <li><a href="{% url 'web:register' %}">Регистрация</a></li>

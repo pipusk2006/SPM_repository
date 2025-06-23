@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Выход</h2>
+                </div>
+                <div class="card-body text-center">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert">{{ message }}</div>
+                        {% endfor %}
+                    {% else %}
+                        <p>Вы успешно вышли из аккаунта. Вы будете перенаправлены на главную страницу через 3 секунды...</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function() {
+        window.location.href = "{% url 'web:home' %}";
+    }, 3000);
+</script>
+{% endblock %}

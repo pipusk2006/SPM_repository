@@ -155,7 +155,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Auth settings
 LOGIN_REDIRECT_URL = 'web:profile'
-LOGOUT_REDIRECT_URL = 'web:login'
 LOGIN_URL = 'web:login'
 
 # Messages settings
