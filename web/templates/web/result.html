@@ -10,37 +10,50 @@
                 </div>
                 <div class="card-body">
                     <h4>Вероятность инсульта</h4>
-                    <p><strong>Вероятность:</strong> {{ probability }}%</p>
-                    <p>На основе введенных данных модель Random Forest оценила ваш риск инсульта.</p>
+                    <p><strong>Предсказанная вероятность:</strong> {{ probability }}%</p>
+                    <p><strong>Уровень риска:</strong> 
+                        {% if risk_level == "крайне низкий" %}
+                            <span class="text-success">{{ risk_level }}</span>
+                        {% elif risk_level == "низкий" %}
+                            <span class="text-primary">{{ risk_level }}</span>
+                        {% elif risk_level == "значительный" %}
+                            <span class="text-warning">{{ risk_level }}</span>
+                        {% elif risk_level == "высокий" %}
+                            <span class="text-danger">{{ risk_level }}</span>
+                        {% else %}
+                            <span class="text-danger fw-bold">{{ risk_level }}</span>
+                        {% endif %}
+                    </p>
+                    <p>На основе введенных данных ансамбль моделей оценил ваш индивидуальный риск инсульта.</p>
 
                     <h4>Рекомендации</h4>
                     <ul>
                         {% if hypertension == 1 %}
-                            <li><strong>Гипертония:</strong> Рекомендуется регулярно измерять давление и проконсультироваться с врачом для контроля.</li>
+                            <li><strong>Гипертония:</strong> Регулярно измеряйте давление и консультируйтесь с врачом.</li>
                         {% else %}
-                            <li><strong>Гипертония:</strong> Поддерживайте здоровый образ жизни для предотвращения развития гипертонии.</li>
+                            <li><strong>Гипертония:</strong> Поддерживайте здоровый образ жизни для предотвращения.</li>
                         {% endif %}
                         {% if smoking_status == "smokes" or smoking_status == "formerly smoked" %}
-                            <li><strong>Курение:</strong> Рассмотрите возможность отказа от курения или снижение количества сигарет для снижения риска.</li>
+                            <li><strong>Курение:</strong> Отказ от курения существенно снижает риск инсульта.</li>
                         {% else %}
-                            <li><strong>Курение:</strong> Продолжайте избегать курения, это снижает риск инсульта.</li>
+                            <li><strong>Курение:</strong> Отлично! Продолжайте избегать курения.</li>
                         {% endif %}
                         {% if bmi > 25 %}
-                            <li><strong>Индекс массы тела (BMI):</strong> Ваш BMI выше нормы (>25). Рекомендуется сбалансированная диета и физическая активность.</li>
+                            <li><strong>Индекс массы тела (BMI):</strong> Превышен (>25). Рассмотрите изменения в питании и активности.</li>
                         {% else %}
-                            <li><strong>Индекс массы тела (BMI):</strong> Ваш BMI в норме. Поддерживайте здоровый вес.</li>
+                            <li><strong>Индекс массы тела (BMI):</strong> В норме. Поддерживайте текущий вес.</li>
                         {% endif %}
                         {% if age > 50 %}
-                            <li><strong>Возраст:</strong> С возрастом риск увеличивается. Регулярные обследования помогут вовремя выявить проблемы.</li>
+                            <li><strong>Возраст:</strong> С возрастом риск повышается. Регулярные обследования важны.</li>
                         {% endif %}
                         {% if avg_glucose_level > 100 %}
-                            <li><strong>Уровень глюкозы:</strong> Высокий уровень глюкозы (>100 мг/дл). Обратитесь к врачу для проверки на диабет.</li>
+                            <li><strong>Уровень глюкозы:</strong> Повышенный (>100 мг/дл). Возможен риск диабета — проверьтесь.</li>
                         {% endif %}
                     </ul>
 
-                    <div style="margin-top: 20px;">
+                    <div class="mt-4">
                         <a href="{% url 'web:home' %}" class="custom-btn">Вернуться на главную</a>
-                        <a href="{% url 'web:profile' %}" class="custom-btn" style="margin-left: 10px;">Перейти в профиль</a>
+                        <a href="{% url 'web:profile' %}" class="custom-btn ms-3">Перейти в профиль</a>
                     </div>
                 </div>
             </div>
