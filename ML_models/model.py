@@ -1,4 +1,6 @@
 import pandas as pd
+import joblib
+import os
 
 def RandomForestModel(
     gender: str,
@@ -11,8 +13,6 @@ def RandomForestModel(
     avg_glucose_level: float,
     bmi: float,
     smoking_status: str,
-    scaler=None,
-    main=None, model_c1=None, model_fnx=None, model_c2=None, model_c3=None, model_final_corr=None,
     threshold=0.245,
     weights={
         'main': 0.55,
@@ -21,8 +21,18 @@ def RandomForestModel(
         'c2': 0.15,
         'c3': 0.15,
         'final_corr': [0.0, 0.04, 0.07, 0.09, 0.11]
-    }
+    },
+    model_dir='saved_models'
 ) -> float:
+    # Загрузка моделей
+    scaler = joblib.load(os.path.join(model_dir, 'scaler.pkl'))
+    main = joblib.load(os.path.join(model_dir, 'main.pkl'))
+    model_c1 = joblib.load(os.path.join(model_dir, 'model_c1.pkl'))
+    model_fnx = joblib.load(os.path.join(model_dir, 'model_fnx.pkl'))
+    model_c2 = joblib.load(os.path.join(model_dir, 'model_c2.pkl'))
+    model_c3 = joblib.load(os.path.join(model_dir, 'model_c3.pkl'))
+    model_final_corr = joblib.load(os.path.join(model_dir, 'model_final_corr.pkl'))
+
     # Категориальные преобразования
     map_bin = {
         'gender': {'Male': 1, 'Female': 0},
@@ -78,4 +88,5 @@ def RandomForestModel(
 
     # Если ни одна ступень не сработала — риск оценивается по последней модели
     return round(p_final * 30, 2)
+
 
