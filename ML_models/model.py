@@ -39,6 +39,12 @@ def RandomForestModel(
     assert main is not None, "❌ Main модель не загружена"
     assert hasattr(main, 'predict_proba'), "❌ Main модель не имеет метода predict_proba"
 
+    print("=== DEBUG LOADING ===")
+    print("Тип scaler:", type(scaler))
+    print("Файл:", os.path.join(model_dir, 'scaler.pkl'))
+
+    if scaler is None:
+        raise ValueError("🚫 Scaler не был загружен. Проверь содержимое scaler.pkl")
 
     # Категориальные преобразования
     map_bin = {
