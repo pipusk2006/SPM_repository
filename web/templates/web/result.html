@@ -1,63 +1,120 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Результат анализа</h2>
-                </div>
-                <div class="card-body">
-                    <h4>Вероятность инсульта</h4>
-                    <p><strong>Предсказанная вероятность:</strong> {{ probability }}%</p>
-                    <p><strong>Уровень риска:</strong> 
-                        {% if risk_level == "крайне низкий" %}
-                            <span class="text-success">{{ risk_level }}</span>
-                        {% elif risk_level == "низкий" %}
-                            <span class="text-primary">{{ risk_level }}</span>
-                        {% elif risk_level == "значительный" %}
-                            <span class="text-warning">{{ risk_level }}</span>
-                        {% elif risk_level == "высокий" %}
-                            <span class="text-danger">{{ risk_level }}</span>
-                        {% else %}
-                            <span class="text-danger fw-bold">{{ risk_level }}</span>
-                        {% endif %}
-                    </p>
-                    <p>На основе введенных данных ансамбль моделей оценил ваш индивидуальный риск инсульта.</p>
+<style>
+    .result-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 140px); /* header + footer */
+        padding: 60px 20px;
+    }
 
-                    <h4>Рекомендации</h4>
-                    <ul>
-                        {% if hypertension == 1 %}
-                            <li><strong>Гипертония:</strong> Регулярно измеряйте давление и консультируйтесь с врачом.</li>
-                        {% else %}
-                            <li><strong>Гипертония:</strong> Поддерживайте здоровый образ жизни для предотвращения.</li>
-                        {% endif %}
-                        {% if smoking_status == "smokes" or smoking_status == "formerly smoked" %}
-                            <li><strong>Курение:</strong> Отказ от курения существенно снижает риск инсульта.</li>
-                        {% else %}
-                            <li><strong>Курение:</strong> Отлично! Продолжайте избегать курения.</li>
-                        {% endif %}
-                        {% if bmi > 25 %}
-                            <li><strong>Индекс массы тела (BMI):</strong> Превышен (>25). Рассмотрите изменения в питании и активности.</li>
-                        {% else %}
-                            <li><strong>Индекс массы тела (BMI):</strong> В норме. Поддерживайте текущий вес.</li>
-                        {% endif %}
-                        {% if age > 50 %}
-                            <li><strong>Возраст:</strong> С возрастом риск повышается. Регулярные обследования важны.</li>
-                        {% endif %}
-                        {% if avg_glucose_level > 100 %}
-                            <li><strong>Уровень глюкозы:</strong> Повышенный (>100 мг/дл). Возможен риск диабета — проверьтесь.</li>
-                        {% endif %}
-                    </ul>
+    .result-card {
+        background-color: rgba(0, 0, 0, 0.85);
+        color: white;
+        padding: 50px;
+        max-width: 720px;
+        width: 100%;
+        font-family: 'IBM Plex Sans', sans-serif;
+    }
 
-                    <div class="mt-4">
-                        <a href="{% url 'web:home' %}" class="custom-btn">Вернуться на главную</a>
-                        <a href="{% url 'web:profile' %}" class="custom-btn ms-3">Перейти в профиль</a>
-                    </div>
-                </div>
-            </div>
+    .result-card h2 {
+        color: #70D3BA;
+        font-size: 28px;
+        font-weight: 500;
+        margin-bottom: 30px;
+    }
+
+    .result-card h4 {
+        font-size: 20px;
+        font-weight: 500;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .result-card p {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .result-card ul {
+        padding-left: 20px;
+        margin-top: 10px;
+    }
+
+    .result-card ul li {
+        margin-bottom: 10px;
+        line-height: 1.5;
+    }
+
+    .risk-level-low { color: #5bc0de; }
+    .risk-level-medium { color: #f0ad4e; }
+    .risk-level-high { color: #d9534f; }
+    .risk-level-very-low { color: #5cb85c; }
+
+    .result-buttons {
+        margin-top: 30px;
+        display: flex;
+        gap: 20px;
+    }
+</style>
+
+<div class="result-wrapper">
+    <div class="result-card">
+        <h2>Результат анализа</h2>
+
+        <h4>Вероятность инсульта</h4>
+        <p><strong>Предсказанная вероятность:</strong> {{ probability }}%</p>
+        <p><strong>Уровень риска:</strong> 
+            {% if risk_level == "крайне низкий" %}
+                <span class="risk-level-very-low">{{ risk_level }}</span>
+            {% elif risk_level == "низкий" %}
+                <span class="risk-level-low">{{ risk_level }}</span>
+            {% elif risk_level == "значительный" %}
+                <span class="risk-level-medium">{{ risk_level }}</span>
+            {% elif risk_level == "высокий" %}
+                <span class="risk-level-high">{{ risk_level }}</span>
+            {% else %}
+                <span class="risk-level-high" style="font-weight: bold;">{{ risk_level }}</span>
+            {% endif %}
+        </p>
+        <p>На основе введенных данных ансамбль моделей оценил ваш индивидуальный риск инсульта.</p>
+
+        <h4>Рекомендации</h4>
+        <ul>
+            {% if hypertension == 1 %}
+                <li><strong>Гипертония:</strong> Регулярно измеряйте давление и консультируйтесь с врачом.</li>
+            {% else %}
+                <li><strong>Гипертония:</strong> Поддерживайте здоровый образ жизни для предотвращения.</li>
+            {% endif %}
+
+            {% if smoking_status == "smokes" or smoking_status == "formerly smoked" %}
+                <li><strong>Курение:</strong> Отказ от курения существенно снижает риск инсульта.</li>
+            {% else %}
+                <li><strong>Курение:</strong> Отлично! Продолжайте избегать курения.</li>
+            {% endif %}
+
+            {% if bmi > 25 %}
+                <li><strong>Индекс массы тела (BMI):</strong> Превышен (>25). Рассмотрите изменения в питании и активности.</li>
+            {% else %}
+                <li><strong>Индекс массы тела (BMI):</strong> В норме. Поддерживайте текущий вес.</li>
+            {% endif %}
+
+            {% if age > 50 %}
+                <li><strong>Возраст:</strong> С возрастом риск повышается. Регулярные обследования важны.</li>
+            {% endif %}
+
+            {% if avg_glucose_level > 100 %}
+                <li><strong>Уровень глюкозы:</strong> Повышенный (>100 мг/дл). Возможен риск диабета — проверьтесь.</li>
+            {% endif %}
+        </ul>
+
+        <div class="result-buttons">
+            <a href="{% url 'web:home' %}" class="custom-btn">На главную</a>
+            <a href="{% url 'web:profile' %}" class="custom-btn">Профиль</a>
         </div>
     </div>
 </div>
 {% endblock %}
+
