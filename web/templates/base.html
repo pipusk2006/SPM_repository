@@ -1,102 +1,67 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>SPM — Анализ риска инсульта</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'web/css/web.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        * {
+        html, body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
             height: 100%;
-            width: 100%;
             font-family: 'IBM Plex Sans', sans-serif;
-            background: url("{% static 'web/bg.jpg' %}") no-repeat center center fixed;
-            background-size: cover;
-            color: #ffffff;
+            background-color: #000;
         }
 
-        body {
-            display: flex;
-            flex-direction: column;
+        main {
+            margin: 0;
+            padding: 0;
         }
 
         header {
-            background: transparent;
-            padding: 20px 40px;
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: 16px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        header img {
-            height: 40px;
-        }
-
-        header div {
-            color: #70D3BA;
-            font-size: 16px;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 24px;
-        }
-
-        nav ul li a,
-        nav ul li button {
+        header a {
             color: #70D3BA;
             text-decoration: none;
-            background: none;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
+            font-weight: 500;
         }
 
-        nav ul li button.custom-btn {
-            padding: 6px 16px;
-            border-radius: 999px;
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        main {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        header a:hover {
+            text-decoration: underline;
         }
 
         footer {
-            background: transparent;
+            background-color: rgba(0, 0, 0, 0.85);
             text-align: center;
-            color: #70D3BA;
+            color: #ccc;
             padding: 20px 0;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
     <header>
         <div style="display: flex; align-items: center; gap: 12px;">
-            <img src="{% static 'web/logo.png' %}" alt="SPM Logo">
-            <div>Stroke risk analysis service</div>
+            <img src="{% static 'web/logo.png' %}" alt="SPM Logo" style="height: 40px;">
+            <div style="color: #d2d2d7; font-size: 16px;">Stroke risk analysis service</div>
         </div>
         <nav>
-            <ul>
+            <ul style="list-style: none; display: flex; gap: 24px; margin: 0; padding: 0;">
                 <li><a href="{% url 'web:home' %}">Главная</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'web:profile' %}">Профиль</a></li>
                     <li>
                         <form action="{% url 'web:logout' %}" method="post" style="display:inline;">
                             {% csrf_token %}
-                            <button type="submit" class="custom-btn">Выход</button>
+                            <button type="submit" class="custom-btn" style="padding: 6px 20px;">Выход</button>
                         </form>
                     </li>
                 {% else %}
@@ -116,6 +81,7 @@
     </footer>
 </body>
 </html>
+
 
 
 
