@@ -1,105 +1,110 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Ввод данных для анализа</h2>
-                </div>
-                <div class="card-body">
-                    <form method="post">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="gender">Пол:</label><br>
-                            <select id="gender" name="gender" required>
-                                <option value="Male">Мужской</option>
-                                <option value="Female">Женский</option>
-                            </select><br>
-                            <small class="form-text text-muted">Укажите ваш пол (Мужской или Женский).</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="smoking_status">Статус курения:</label><br>
-                            <select id="smoking_status" name="smoking_status" required>
-                                <option value="never smoked">Никогда не курил</option>
-                                <option value="formerly smoked">Бросил курить</option>
-                                <option value="smokes">Курит</option>
-                                <option value="Unknown">Неизвестно</option>
-                            </select><br>
-                            <small class="form-text text-muted">Укажите ваш статус курения (Никогда, Бросил, Курит, Неизвестно).</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="age">Возраст:</label><br>
-                            <input type="number" id="age" name="age" min="0" max="120" required><br>
-                            <small class="form-text text-muted">Введите ваш возраст в годах (0-120).</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="work_type">Тип работы:</label><br>
-                            <select id="work_type" name="work_type" required>
-                                <option value="Private">Частная</option>
-                                <option value="Self-employed">Самозанятый</option>
-                                <option value="Govt_job">Госслужба</option>
-                                <option value="children">Ребенок</option>
-                                <option value="Never_worked">Никогда не работал</option>
-                            </select><br>
-                            <small class="form-text text-muted">Укажите тип вашей работы (Частная, Самозанятый, Госслужба, Ребенок, Никогда не работал).</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="Residence_type">Тип проживания:</label><br>
-                            <select id="Residence_type" name="Residence_type" required>
-                                <option value="Urban">Город</option>
-                                <option value="Rural">Село</option>
-                            </select><br>
-                            <small class="form-text text-muted">Укажите тип вашего проживания (Город или Село).</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="hypertension">Гипертония:</label><br>
-                            <select id="hypertension" name="hypertension" required>
-                                <option value="0">Нет</option>
-                                <option value="1">Да</option>
-                            </select><br>
-                            <small class="form-text text-muted">Наличие гипертонии (0 - Нет, 1 - Да).</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="avg_glucose_level">Средний уровень глюкозы:</label><br>
-                            <input type="number" id="avg_glucose_level" name="avg_glucose_level" step="0.1" min="50" max="300" required><br>
-                            <small class="form-text text-muted">Введите средний уровень глюкозы в крови (мг/дл, 50-300).</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="bmi">Индекс массы тела (BMI):</label><br>
-                            <input type="number" id="bmi" name="bmi" step="0.1" min="10" max="60" required><br>
-                            <small class="form-text text-muted">Введите ваш BMI (10-60).</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="ever_married">Был ли женат/замужем:</label><br>
-                            <select id="ever_married" name="ever_married" required>
-                                <option value="Yes">Да</option>
-                                <option value="No">Нет</option>
-                            </select><br>
-                            <small class="form-text text-muted">Укажите, были ли вы когда-либо женаты/замужем (Да/Нет).</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="heart_disease">Сердечные заболевания:</label><br>
-                            <select id="heart_disease" name="heart_disease" required>
-                                <option value="0">Нет</option>
-                                <option value="1">Да</option>
-                            </select><br>
-                            <small class="form-text text-muted">Наличие сердечных заболеваний (0 - Нет, 1 - Да).</small>
-                        </div>
-                        <button type="submit" class="custom-btn">Отправить</button>
-                    </form>
-                    {% if last_result %}
-                        <div class="mt-3">
-                            <p class="text-muted">Ваш последний анализ:</p>
-                            <a href="{% url 'web:result' pk=last_result.pk %}" class="custom-btn">Посмотреть последний результат</a>
-                        </div>
-                    {% else %}
-                        <p class="mt-3 text-muted">После отправки формы вы будете перенаправлены на страницу с результатами анализа.</p>
-                    {% endif %}
-                </div>
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h2>Ввод данных для анализа</h2>
+        <form method="post" style="margin-top: 30px; display: flex; flex-direction: column; gap: 20px;">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="gender">Пол:</label>
+                <select id="gender" name="gender" required>
+                    <option value="Male">Мужской</option>
+                    <option value="Female">Женский</option>
+                </select>
+                <small class="form-text">Укажите ваш пол (Мужской или Женский).</small>
             </div>
-        </div>
+
+            <div class="form-group">
+                <label for="smoking_status">Статус курения:</label>
+                <select id="smoking_status" name="smoking_status" required>
+                    <option value="never smoked">Никогда не курил</option>
+                    <option value="formerly smoked">Бросил курить</option>
+                    <option value="smokes">Курит</option>
+                    <option value="Unknown">Неизвестно</option>
+                </select>
+                <small class="form-text">Укажите ваш статус курения.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Возраст:</label>
+                <input type="number" id="age" name="age" min="0" max="120" required>
+                <small class="form-text">Введите возраст (0–120).</small>
+            </div>
+
+            <div class="form-group">
+                <label for="work_type">Тип работы:</label>
+                <select id="work_type" name="work_type" required>
+                    <option value="Private">Частная</option>
+                    <option value="Self-employed">Самозанятый</option>
+                    <option value="Govt_job">Госслужба</option>
+                    <option value="children">Ребенок</option>
+                    <option value="Never_worked">Не работал</option>
+                </select>
+                <small class="form-text">Выберите тип работы.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="Residence_type">Тип проживания:</label>
+                <select id="Residence_type" name="Residence_type" required>
+                    <option value="Urban">Город</option>
+                    <option value="Rural">Село</option>
+                </select>
+                <small class="form-text">Укажите ваш регион проживания.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="hypertension">Гипертония:</label>
+                <select id="hypertension" name="hypertension" required>
+                    <option value="0">Нет</option>
+                    <option value="1">Да</option>
+                </select>
+                <small class="form-text">Укажите наличие гипертонии.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="avg_glucose_level">Средний уровень глюкозы:</label>
+                <input type="number" id="avg_glucose_level" name="avg_glucose_level" step="0.1" min="50" max="300" required>
+                <small class="form-text">Значение в мг/дл (50–300).</small>
+            </div>
+
+            <div class="form-group">
+                <label for="bmi">BMI (Индекс массы тела):</label>
+                <input type="number" id="bmi" name="bmi" step="0.1" min="10" max="60" required>
+                <small class="form-text">Введите ваш индекс массы тела.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="ever_married">Брак:</label>
+                <select id="ever_married" name="ever_married" required>
+                    <option value="Yes">Да</option>
+                    <option value="No">Нет</option>
+                </select>
+                <small class="form-text">Укажите, были ли вы в браке.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="heart_disease">Сердечные заболевания:</label>
+                <select id="heart_disease" name="heart_disease" required>
+                    <option value="0">Нет</option>
+                    <option value="1">Да</option>
+                </select>
+                <small class="form-text">Укажите наличие сердечных заболеваний.</small>
+            </div>
+
+            <button type="submit" class="custom-btn" style="align-self: center; width: 70%;">Отправить</button>
+        </form>
+
+        {% if last_result %}
+            <div class="auth-footer" style="margin-top: 30px;">
+                <p class="form-text">Ваш последний анализ:</p>
+                <a href="{% url 'web:result' pk=last_result.pk %}" class="custom-btn" style="margin-top: 10px;">Посмотреть результат</a>
+            </div>
+        {% else %}
+            <div class="auth-footer" style="margin-top: 30px;">
+                <p class="form-text">После отправки формы вы увидите результат.</p>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
