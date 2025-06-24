@@ -23,60 +23,49 @@
 
         header {
             background-color: rgba(0, 0, 0, 0.85);
-            padding: 16px 32px;
+            padding: 16px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        header a {
-            color: #70D3BA;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        header a:hover {
-            text-decoration: underline;
-        }
-
-        header .brand {
+        .header-left {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
         }
 
-        header .brand-text {
+        .header-left img {
+            height: 40px;
+        }
+
+        .header-subtitle {
             color: #70D3BA;
-            font-size: 16px;
-            font-weight: 500;
+            font-size: 13px;
         }
 
-        header nav ul {
+        nav ul {
             list-style: none;
             display: flex;
             gap: 24px;
             margin: 0;
             padding: 0;
-            align-items: center;
         }
 
-        header nav ul li form {
-            margin: 0;
-        }
-
-        header .logout-btn {
-            background-color: transparent;
-            border: 1px solid #70D3BA;
+        nav a, nav button.custom-btn {
             color: #70D3BA;
-            padding: 6px 20px;
-            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            background: none;
+            border: none;
             cursor: pointer;
-            font-size: 14px;
-            transition: background 0.2s ease;
+            font-size: 16px;
+            padding: 6px 20px;
         }
 
-        header .logout-btn:hover {
-            background-color: rgba(112, 211, 186, 0.15);
+        nav a:hover, nav button.custom-btn:hover {
+            text-decoration: underline;
         }
 
         footer {
@@ -86,13 +75,17 @@
             padding: 20px 0;
             font-size: 14px;
         }
+
+        form.logout-form {
+            display: inline;
+        }
     </style>
 </head>
 <body>
     <header>
-        <div class="brand">
-            <img src="{% static 'web/logo.png' %}" alt="SPM Logo" style="height: 40px;">
-            <div class="brand-text">Stroke risk analysis service</div>
+        <div class="header-left">
+            <img src="{% static 'web/logo.png' %}" alt="SPM Logo">
+            <div class="header-subtitle">Stroke risk analysis service</div>
         </div>
         <nav>
             <ul>
@@ -100,9 +93,9 @@
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'web:profile' %}">Профиль</a></li>
                     <li>
-                        <form action="{% url 'web:logout' %}" method="post">
+                        <form action="{% url 'web:logout' %}" method="post" class="logout-form">
                             {% csrf_token %}
-                            <button type="submit" class="logout-btn">Выход</button>
+                            <button type="submit" class="custom-btn">Выход</button>
                         </form>
                     </li>
                 {% else %}
@@ -122,6 +115,7 @@
     </footer>
 </body>
 </html>
+
 
 
 
