@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from .models import Profile, InputData
 from .forms import UserRegistrationForm, ProfileUpdateForm
 from ML_models.model import RandomForestModel
+from .models import InputData  # убедись, что модель есть
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # Импортируем модель только когда она нужна
 def get_model_prediction(*args):
@@ -87,5 +90,54 @@ def logout_view(request):
         return redirect('web:home')
     return render(request, 'web/logout.html')
 
+
+
+@login_required
 def input_data(request):
-    return render(request, 'web/input_data.html')
+    if request.method == 'POST':
+        try:
+            # Извлекаем данные из формы
+            gender = request.POST['gender']
+            smoking_status = request.POST['smoking_status']
+            age = float(request.POST['age'])
+            work_type = request.POST['work_type']
+            residence_type = request.POST['Residence_type']
+            hypertension = int(request.POST['hypertension'])
+            avg_glucose_level = float(request.POST['avg_glucose_level'])
+            bmi = float(request.POST['bmi'])
+            ever_married = request.POST['ever_married']
+            heart_disease = int(request.POST['heart_disease'])
+
+            # Прогоняем через модель
+            prediction = RandomForestModel(
+                gender, age, hypertension, heart_disease,
+                ever_married, work_type, residence_type,
+                avg_glucose_level, bmi, smoking_status
+            )
+
+            # Сохраняем в БД
+            input_instance = InputData.objects.create(
+                user=request.user,
+                gender=gender,
+                age=age,
+                hypertension=hypertension,
+                heart_disease=heart_disease,
+                ever_married=ever_married,
+                work_type=work_type,
+                Residence_type=residence_type,
+                avg_glucose_level=avg_glucose_level,
+                bmi=bmi,
+                smoking_status=smoking_status,
+                prediction=prediction
+            )
+
+            return redirect('web:result', pk=input_instance.pk)
+
+        except Exception as e:
+            messages.error(request, f'Ошибка при обработке данных: {e}')
+            return redirect('web:input_data')
+
+    # GET-запрос
+    last_result = InputData.objects.filter(user=request.user).order_by('-id').first()
+    return render(request, 'web/input_data.html', {'last_result': last_result})
+
