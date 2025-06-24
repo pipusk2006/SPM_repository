@@ -1,35 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Вход</h2>
-                </div>
-                <div class="card-body">
-                    <form method="post">
-                        {% csrf_token %}
-                        {% for field in form %}
-                            <div class="form-group text-center">
-                                {{ field.label_tag }}<br>
-                                {{ field }}<br>
-                                {% if field.help_text %}
-                                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                                {% endif %}
-                                {% for error in field.errors %}
-                                    <div class="alert">{{ error }}</div>
-                                {% endfor %}
-                            </div>
+<div class="container" style="display: flex; justify-content: center; align-items: center; padding: 60px 20px;">
+    <div class="card" style="width: 100%; max-width: 400px; margin: auto;">
+        <div class="card-header" style="text-align: center;">
+            <h2 style="margin: 0;">Вход</h2>
+        </div>
+        <div class="card-body">
+            <form method="post" style="display: flex; flex-direction: column; gap: 20px;">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group" style="text-align: left;">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div class="alert">{{ error }}</div>
                         {% endfor %}
-                        <button type="submit" class="custom-btn" style="width: 50%; margin-top: 20px;">Войти</button>
-                    </form>
-                </div>
-                <div class="card-footer text-center">
-                    <p>Нет аккаунта? <a href="{% url 'web:register' %}">Зарегистрироваться</a></p>
-                </div>
-            </div>
+                    </div>
+                {% endfor %}
+                <button type="submit" class="custom-btn" style="align-self: center; width: 50%; margin-top: 10px;">Войти</button>
+            </form>
+        </div>
+        <div class="card-footer" style="text-align: center;">
+            <p style="margin: 0;">Нет аккаунта? <a href="{% url 'web:register' %}">Зарегистрироваться</a></p>
         </div>
     </div>
 </div>
