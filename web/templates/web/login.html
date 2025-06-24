@@ -1,10 +1,87 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+    .auth-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 140px);
+        padding: 60px 20px;
+    }
+
+    .auth-card {
+        background-color: rgba(0, 0, 0, 0.85);
+        color: white;
+        padding: 50px;
+        max-width: 500px;
+        width: 100%;
+        font-family: 'IBM Plex Sans', sans-serif;
+    }
+
+    .auth-card h2 {
+        font-size: 28px;
+        font-weight: 500;
+        margin-bottom: 30px;
+        color: #70D3BA;
+        text-align: center;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px 14px;
+        font-size: 16px;
+        background-color: rgba(255, 255, 255, 0.05);
+        color: white;
+        border: 1px solid #70D3BA;
+        border-radius: 4px;
+        outline: none;
+        transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus {
+        border-color: #88e2ce;
+    }
+
+    .form-text {
+        font-size: 13px;
+        color: #ccc;
+        margin-top: 6px;
+    }
+
+    .alert {
+        color: #ff6e6e;
+        font-size: 14px;
+        margin-top: 6px;
+    }
+
+    .auth-footer {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .auth-footer a {
+        color: #70D3BA;
+        text-decoration: none;
+    }
+
+    .auth-footer a:hover {
+        text-decoration: underline;
+    }
+</style>
+
 <div class="auth-wrapper">
     <div class="auth-card">
         <h2>Вход</h2>
-        <form method="post" style="margin-top: 30px; display: flex; flex-direction: column; gap: 20px;">
+        <form method="post" style="display: flex; flex-direction: column; gap: 20px;">
             {% csrf_token %}
             {% for field in form %}
                 <div class="form-group">
@@ -30,6 +107,7 @@
     </div>
 </div>
 {% endblock %}
+
 
 
 
