@@ -93,20 +93,20 @@ model_final_corr = RandomForestClassifier(n_estimators=100, class_weight='balanc
 model_final_corr.fit(scaler.transform(X_final_corr), y_final_corr)
 p_final_corr = model_final_corr.predict_proba(X_val_s)[:, 1]
 
-p_main = (main.predict_proba(X_val_s)[:, 1] > 0.6).astype(int)
+p_main = (main.predict_proba(X_val_s)[:, 1] > 0.9).astype(int)
 p1 = model_c1.predict_proba(X_val_s)[:, 1]
 p2 = model_c2.predict_proba(X_val_s)[:, 1]
 p3 = model_c3.predict_proba(X_val_s)[:, 1]
 
 ensemble = (
-    0.55 * p_main +
-    0.12 * p1 +
+    0.65 * p_main +
+    0.115 * p1 +
     0.02 * px +
     0.15 * p2 +
     0.15 * p3 +
-    0.11 * p_final_corr  
+    0.01 * p_final_corr  
 )
-y_pred = (ensemble > 0.245).astype(int)
+y_pred = (ensemble > 0.255).astype(int)
 
 print("🎯 Accuracy:", accuracy_score(y_val, y_pred))
 print("\n📊 Classification Report:\n", classification_report(y_val, y_pred, digits=4))

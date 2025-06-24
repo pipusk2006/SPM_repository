@@ -6,6 +6,10 @@ def preprocess():
     path = kagglehub.dataset_download("fedesoriano/stroke-prediction-dataset")
     df = pd.read_csv(f"{path}/healthcare-dataset-stroke-data.csv")
 
+    # Удаляем столбец id (он не нужен для обучения)
+    if 'id' in df.columns:
+        df = df.drop(columns=['id'])
+
     map_bin = {
         'gender': {'Male': 1, 'Female': 0},
         'ever_married': {'Yes': 1, 'No': 0},
@@ -27,6 +31,7 @@ def preprocess():
     df[num_cols] = imputer.fit_transform(df[num_cols])
 
     return df
+
 
 
 
