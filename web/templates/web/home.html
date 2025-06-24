@@ -1,35 +1,82 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<div class="container" style="padding: 60px 20px; text-align: center;">
-    <h2 style="font-size: 28px; font-weight: 600; margin-bottom: 30px;">
-        Добро пожаловать на платформу SPM (Stroke Prediction Model)
-    </h2>
+<style>
+    body {
+        background: url("{% static 'web/bg.jpg' %}") no-repeat center center fixed;
+        background-size: cover;
+    }
 
-    <p style="max-width: 700px; margin: 0 auto 20px; font-size: 18px; line-height: 1.6;">
-        Платформа создана для предотвращения инсульта — одного из главных факторов смертности и инвалидности в мире.
-        Наш сервис помогает пациентам оценить риск этого заболевания и принять меры для его снижения.
-        Зная свои факторы риска, такие как образ жизни или медицинские показатели, вы можете значительно укрепить здоровье.
-    </p>
+    .home-wrapper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        min-height: calc(100vh - 100px); /* учёт header + footer */
+        padding: 60px 40px;
+    }
 
-    <p style="max-width: 700px; margin: 0 auto 20px; font-size: 18px; line-height: 1.6;">
-        SPM предлагает надёжные инструменты и понятные рекомендации, чтобы начать заботиться о себе прямо сейчас.
-    </p>
+    .home-content {
+        background-color: rgba(0, 0, 0, 0.65);
+        padding: 40px 50px;
+        border-radius: 12px;
+        max-width: 700px;
+        color: white;
+        font-family: 'Roboto', 'Helvetica', sans-serif;
+    }
 
-    <p style="max-width: 700px; margin: 0 auto 20px; font-size: 18px; line-height: 1.6;">
-        Платформа использует ансамбль моделей <strong>RandomForest</strong>, обученный на обширной базе клинических данных,
-        для точного выявления риска инсульта. После простой регистрации вы можете ввести свои данные — возраст, привычки,
-        показатели здоровья, такие как артериальное давление или уровень глюкозы — и получить персонализированную оценку риска.
-    </p>
+    .home-content h2 {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 30px;
+    }
 
-    <p style="max-width: 700px; margin: 0 auto 30px; font-size: 18px; line-height: 1.6;">
-        SPM выделит ваши уязвимости и предоставит рекомендации по их устранению, помогая предотвратить инсульт.
-        Все функции доступны зарегистрированным пользователям, а ваши данные надёжно защищены.
-    </p>
+    .home-content p {
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
 
-    <a href="{% url 'web:input_data' %}" class="custom-btn">
-        Ввести данные для анализа
-    </a>
+    .home-content .custom-btn {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-radius: 999px;
+        padding: 15px 40px;
+        border: none;
+        font-family: 'Roboto', 'Helvetica', sans-serif;
+        font-size: 16px;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 20px;
+        transition: background-color 0.2s ease;
+    }
+
+    .home-content .custom-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+</style>
+
+<div class="home-wrapper">
+    <div class="home-content">
+        <h2>
+            Добро пожаловать на платформу SPM (Stroke Prediction Model)
+        </h2>
+
+        <p>
+            Платформа создана для предотвращения инсульта — одного из главных факторов смертности и инвалидности в мире.
+            Наш сервис помогает пациентам оценить риск этого заболевания и принять меры для его снижения.
+            Зная свои факторы риска, такие как образ жизни или медицинские показатели, вы можете значительно укрепить здоровье.
+        </p>
+
+        <p>
+            SPM предлагает надёжные инструменты и понятные рекомендации, чтобы начать заботиться о себе прямо сейчас.
+        </p>
+
+        <a href="{% url 'web:input_data' %}" class="custom-btn">
+            Ввести данные для анализа
+        </a>
+    </div>
 </div>
 {% endblock %}
+
 
