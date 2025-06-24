@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container" style="display: flex; justify-content: center; align-items: center; padding: 60px 20px;">
-    <div class="card" style="width: 100%; max-width: 480px; margin: auto;">
-        <div class="card-header" style="text-align: center;">
-            <h2 style="margin: 0;">Регистрация</h2>
+<div class="container" style="display: flex; justify-content: center; align-items: center; padding: 80px 20px;">
+    <div class="card" style="width: 100%; max-width: 540px; padding: 40px 30px;">
+        <div class="card-header" style="text-align: center; margin-bottom: 20px;">
+            <h2 style="margin: 0;">Вход</h2>
         </div>
         <div class="card-body">
             <form method="post" style="display: flex; flex-direction: column; gap: 20px;">
@@ -25,14 +25,15 @@
                         {% endfor %}
                     </div>
                 {% endfor %}
-                <button type="submit" class="custom-btn" style="align-self: center; width: 70%; margin-top: 10px;">Зарегистрироваться</button>
+                <button type="submit" class="custom-btn" style="align-self: center; width: 70%; margin-top: 20px;">Войти</button>
             </form>
         </div>
-        <div class="card-footer" style="text-align: center;">
-            <p style="margin: 0;">Уже есть аккаунт? <a href="{% url 'web:login' %}">Войти</a></p>
+        <div class="card-footer" style="text-align: center; margin-top: 20px;">
+            <p style="margin: 0;">Нет аккаунта? <a href="{% url 'web:register' %}">Зарегистрироваться</a></p>
         </div>
     </div>
 </div>
 {% endblock %}
+
 
 
