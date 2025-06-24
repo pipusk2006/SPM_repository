@@ -4,25 +4,34 @@
 {% block content %}
 <style>
     body {
-        background: url("{% get_static_prefix %}web/bg.jpg") no-repeat center center fixed;
-        background-size: cover;
+        /* Гарантируем отображение фона */
+        background: url("{% get_static_prefix %}web/bg.jpg") no-repeat center center fixed !important;
+        background-size: cover !important;
+        margin: 0;
+        min-height: 100vh;
     }
 
     .home-wrapper {
+        /* Flex для позиционирования слева */
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        min-height: calc(100vh - 100px); /* учёт header + footer */
+        min-height: calc(100vh - 100px); /* Учет header + footer */
         padding: 60px 20px;
+        position: relative;
+        z-index: 1;
     }
 
     .home-content {
+        /* Черный прямоугольник с прямыми углами */
         background-color: rgba(0, 0, 0, 0.85);
         padding: 40px 50px;
         max-width: 650px;
-        margin-left: 30px;
+        margin-left: 50px; /* Усиленное смещение влево */
+        transform: translateX(-20px); /* Дополнительное смещение */
         color: white;
         font-family: 'Inter', sans-serif;
+        z-index: 2;
     }
 
     .home-content h2 {
@@ -60,6 +69,7 @@
     @media (max-width: 768px) {
         .home-content {
             margin-left: 15px;
+            transform: translateX(0); /* Убираем смещение на малых экранах */
             max-width: 90%;
             padding: 30px;
         }
@@ -78,7 +88,7 @@
             SPM: Ваш помощник в предотвращении инсульта
         </h2>
         <p>
-            Платформа SPM создана для защиты вашего здоровья от инсульта — одной из ведущих причин смертности. Зная факторы риска, такие как образ жизни или медицинские показатели, вы можете снизить угрозу и укрепить здоровье.
+            Платформа SPM (Stroke Prediction Model) создана для защиты вашего здоровья от инсульта — одной из ведущих причин смертности. Зная факторы риска, такие как образ жизни или медицинские показатели, вы можете снизить угрозу и укрепить здоровье.
         </p>
         <p>
             Используя ансамбль моделей RandomForest, SPM анализирует ваши данные — возраст, привычки, давление, глюкоза — и выдает персонализированную оценку риска с рекомендациями. Зарегистрируйтесь, чтобы начать, — ваши данные надежно защищены.
