@@ -11,7 +11,11 @@
                 {% csrf_token %}
                 {% for field in form %}
                     <div class="form-group" style="text-align: left;">
-                        {{ field.label_tag }}
+                        {% if field.name == "username" %}
+                            <label for="{{ field.id_for_label }}">Логин</label>
+                        {% else %}
+                            {{ field.label_tag }}
+                        {% endif %}
                         {{ field }}
                         {% if field.help_text %}
                             <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -21,7 +25,7 @@
                         {% endfor %}
                     </div>
                 {% endfor %}
-                <button type="submit" class="custom-btn" style="align-self: center; width: 50%; margin-top: 10px;">Войти</button>
+                <button type="submit" class="custom-btn" style="align-self: center; width: 60%; margin-top: 10px;">Войти</button>
             </form>
         </div>
         <div class="card-footer" style="text-align: center;">
@@ -30,3 +34,4 @@
     </div>
 </div>
 {% endblock %}
+
