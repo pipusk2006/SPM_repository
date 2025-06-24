@@ -1,64 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container d-flex justify-content-center align-items-center min-vh-100 py-5">
-    <div class="card shadow-lg border-0" style="max-width: 450px; width: 100%; border-radius: 20px; overflow: hidden;">
-        <div class="card-header bg-primary text-white text-center py-4">
-            <h3 class="mb-0" style="font-weight: 600;">Вход в SPM</h3>
+<div class="container" style="display: flex; justify-content: center; align-items: center; padding: 60px 20px;">
+    <div class="card" style="width: 100%; max-width: 480px; margin: auto;">
+        <div class="card-header" style="text-align: center;">
+            <h2 style="margin: 0;">Регистрация</h2>
         </div>
-        <div class="card-body p-4">
-            <form method="post" class="d-flex flex-column gap-3">
+        <div class="card-body">
+            <form method="post" style="display: flex; flex-direction: column; gap: 20px;">
                 {% csrf_token %}
                 {% for field in form %}
-                    <div class="form-group mb-3">
-                        <label for="{{ field.id_for_label }}" class="form-label fw-medium">
-                            {% if field.name == "username" %}
-                                Логин
-                            {% else %}
-                                {{ field.label }}
-                            {% endif %}
-                        </label>
-                        <input type="{{ field.field.widget.input_type }}" 
-                               class="form-control rounded-pill px-4 py-2" 
-                               id="{{ field.id_for_label }}" 
-                               name="{{ field.name }}" 
-                               placeholder="{{ field.label }}" 
-                               value="{{ field.value|default_if_none:'' }}"
-                               style="border: 1px solid #ced4da; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <div class="form-group" style="text-align: left;">
+                        {% if field.name == "username" %}
+                            <label for="{{ field.id_for_label }}">Логин</label>
+                        {% else %}
+                            {{ field.label_tag }}
+                        {% endif %}
+                        {{ field }}
                         {% if field.help_text %}
-                            <small class="form-text text-muted d-block mt-1">{{ field.help_text }}</small>
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
                         {% endif %}
                         {% for error in field.errors %}
-                            <div class="alert alert-danger mt-2 rounded-pill py-1 px-3" role="alert">{{ error }}</div>
+                            <div class="alert">{{ error }}</div>
                         {% endfor %}
                     </div>
                 {% endfor %}
-                <button type="submit" 
-                        class="btn btn-primary rounded-pill py-2 px-5 mt-3 mx-auto" 
-                        style="font-weight: 500; transition: background-color 0.3s;">
-                    Войти
-                </button>
+                <button type="submit" class="custom-btn" style="align-self: center; width: 70%; margin-top: 10px;">Зарегистрироваться</button>
             </form>
         </div>
-        <div class="card-footer text-center py-3 bg-light">
-            <p class="mb-0">Нет аккаунта? <a href="{% url 'web:register' %}" class="text-primary fw-medium">Зарегистрироваться</a></p>
+        <div class="card-footer" style="text-align: center;">
+            <p style="margin: 0;">Уже есть аккаунт? <a href="{% url 'web:login' %}">Войти</a></p>
         </div>
     </div>
 </div>
-<style>
-    .form-control:focus {
-        border-color: #007bff;
-        box-shadow: 0 0 8px rgba(0,123,255,0.3);
-    }
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
-    @media (max-width: 576px) {
-        .card {
-            margin: 0 15px;
-        }
-    }
-</style>
 {% endblock %}
+
 
