@@ -7,38 +7,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'web/css/web.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+
     <style>
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
-        }
-
-        body {
             font-family: 'IBM Plex Sans', sans-serif;
-            background-color: #000; /* fallback на случай если фон не прогрузился */
+            background-color: #000;
+            color: #ffffff;
         }
 
-        main {
+        header {
+            background-color: #000;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        header .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        header img {
+            height: 40px;
+        }
+
+        header .left span {
+            color: #d2d2d7;
+            font-size: 16px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 24px;
             margin: 0;
             padding: 0;
         }
 
+        nav a, nav button {
+            color: #70D3BA;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        nav button:hover,
+        nav a:hover {
+            opacity: 0.75;
+        }
+
+        main {
+            padding: 40px 20px;
+            min-height: calc(100vh - 140px);
+        }
+
         footer {
             text-align: center;
-            color: #ccc;
-            padding: 20px 0;
+            color: #888;
+            padding: 20px;
+            background-color: #000;
+        }
+
+        .card,
+        .form-group,
+        .dark-box {
+            background-color: rgba(0, 0, 0, 0.85);
+            border-radius: 0px;
+            padding: 20px;
+            color: white;
+        }
+
+        .custom-btn {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            border-radius: 999px;
+            padding: 12px 28px;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            font-family: 'IBM Plex Sans', sans-serif;
+            transition: background-color 0.2s ease;
+        }
+
+        .custom-btn:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+
+        input, select, textarea {
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
+            border: 1px solid #444;
+            padding: 10px;
+            border-radius: 0px;
+            width: 100%;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #70D3BA;
         }
     </style>
 </head>
 <body>
-    <header style="background-color: #000; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <img src="{% static 'web/logo.png' %}" alt="SPM Logo" style="height: 40px;">
-            <div style="color: #d2d2d7; font-size: 16px;">Stroke risk analysis service</div>
+    <header>
+        <div class="left">
+            <img src="{% static 'web/logo.png' %}" alt="SPM Logo">
+            <span>Stroke risk analysis service</span>
         </div>
         <nav>
-            <ul style="list-style: none; display: flex; gap: 24px; margin: 0; padding: 0;">
+            <ul>
                 <li><a href="{% url 'web:home' %}">Главная</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'web:profile' %}">Профиль</a></li>
@@ -65,6 +153,7 @@
     </footer>
 </body>
 </html>
+
 
 
 
