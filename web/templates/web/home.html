@@ -4,7 +4,7 @@
 {% block content %}
 <style>
     body {
-        background: url("{% static 'web/bg.jpg' %}") no-repeat center center fixed;
+        background: url("{% get_static_prefix %}web/bg.jpg") no-repeat center center fixed;
         background-size: cover;
     }
 
@@ -13,38 +13,40 @@
         justify-content: flex-start;
         align-items: center;
         min-height: calc(100vh - 100px); /* учёт header + footer */
-        padding: 60px 40px;
+        padding: 60px 20px;
     }
 
     .home-content {
-        background-color: rgba(0, 0, 0, 0.65);
+        background-color: rgba(0, 0, 0, 0.85);
         padding: 40px 50px;
-        border-radius: 12px;
-        max-width: 700px;
+        max-width: 650px;
+        margin-left: 30px;
         color: white;
-        font-family: 'Roboto', 'Helvetica', sans-serif;
+        font-family: 'Inter', sans-serif;
     }
 
     .home-content h2 {
-        font-size: 28px;
-        font-weight: 600;
-        margin-bottom: 30px;
+        font-size: 30px;
+        font-weight: 500;
+        margin-bottom: 25px;
     }
 
     .home-content p {
-        font-size: 18px;
-        line-height: 1.6;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.5;
         margin-bottom: 20px;
     }
 
     .home-content .custom-btn {
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(255, 255, 255, 0.15);
         color: white;
         border-radius: 999px;
-        padding: 15px 40px;
+        padding: 14px 40px;
         border: none;
-        font-family: 'Roboto', 'Helvetica', sans-serif;
+        font-family: 'Inter', sans-serif;
         font-size: 16px;
+        font-weight: 400;
         text-decoration: none;
         display: inline-block;
         margin-top: 20px;
@@ -52,26 +54,35 @@
     }
 
     .home-content .custom-btn:hover {
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: rgba(255, 255, 255, 0.25);
+    }
+
+    @media (max-width: 768px) {
+        .home-content {
+            margin-left: 15px;
+            max-width: 90%;
+            padding: 30px;
+        }
+        .home-content h2 {
+            font-size: 26px;
+        }
+        .home-content p {
+            font-size: 15px;
+        }
     }
 </style>
 
 <div class="home-wrapper">
     <div class="home-content">
         <h2>
-            Добро пожаловать на платформу SPM (Stroke Prediction Model)
+            SPM: Ваш помощник в предотвращении инсульта
         </h2>
-
         <p>
-            Платформа создана для предотвращения инсульта — одного из главных факторов смертности и инвалидности в мире.
-            Наш сервис помогает пациентам оценить риск этого заболевания и принять меры для его снижения.
-            Зная свои факторы риска, такие как образ жизни или медицинские показатели, вы можете значительно укрепить здоровье.
+            Платформа SPM создана для защиты вашего здоровья от инсульта — одной из ведущих причин смертности. Зная факторы риска, такие как образ жизни или медицинские показатели, вы можете снизить угрозу и укрепить здоровье.
         </p>
-
         <p>
-            SPM предлагает надёжные инструменты и понятные рекомендации, чтобы начать заботиться о себе прямо сейчас.
+            Используя ансамбль моделей RandomForest, SPM анализирует ваши данные — возраст, привычки, давление, глюкоза — и выдает персонализированную оценку риска с рекомендациями. Зарегистрируйтесь, чтобы начать, — ваши данные надежно защищены.
         </p>
-
         <a href="{% url 'web:input_data' %}" class="custom-btn">
             Ввести данные для анализа
         </a>
