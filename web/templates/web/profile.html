@@ -1,26 +1,72 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Профиль пользователя</h2>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h4>Основная информация</h4>
-                            <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
-                            <p><strong>Email:</strong> {{ user.email }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer text-center">
-                    <a href="{% url 'web:input_data' %}" class="custom-btn" style="width: 50%; margin-top: 10px;">Перейти к вводу данных</a>
-                </div>
-            </div>
+<style>
+    .profile-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 140px); /* header + footer */
+        padding: 60px 20px;
+    }
+
+    .profile-card {
+        background-color: rgba(0, 0, 0, 0.85);
+        color: white;
+        padding: 50px;
+        max-width: 600px;
+        width: 100%;
+        font-family: 'IBM Plex Sans', sans-serif;
+    }
+
+    .profile-card h2 {
+        font-size: 28px;
+        font-weight: 500;
+        margin-bottom: 30px;
+        color: #70D3BA;
+    }
+
+    .profile-card h4 {
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 15px;
+    }
+
+    .profile-card p {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .profile-footer {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .profile-footer .custom-btn {
+        width: 60%;
+    }
+
+    @media (max-width: 768px) {
+        .profile-card {
+            padding: 30px;
+        }
+
+        .profile-footer .custom-btn {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="profile-wrapper">
+    <div class="profile-card">
+        <h2>Профиль пользователя</h2>
+
+        <h4>Основная информация</h4>
+        <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+
+        <div class="profile-footer">
+            <a href="{% url 'web:input_data' %}" class="custom-btn">Перейти к вводу данных</a>
         </div>
     </div>
 </div>
