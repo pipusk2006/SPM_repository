@@ -17,7 +17,7 @@
 
         <!-- Правая часть: навигация -->
         <nav>
-            <ul style="list-style: none; display: flex; gap: 24px; margin: 0; padding: 0; align-items: center;">
+            <ul style="list-style: none; display: flex; gap: 24px; margin: 0; padding: 0; align-items: center; color: #70D3BA;">
                 <li><a href="{% url 'web:home' %}">Главная</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'web:profile' %}">Профиль</a></li>
