@@ -24,7 +24,7 @@
                     <li>
                         <form action="{% url 'web:logout' %}" method="post" style="display:inline;">
                             {% csrf_token %}
-                            <button type="submit" class="custom-btn" style="padding: 6px 20px; font-size: 14px;">Выход</button>
+                            <button type="submit" class="custom-btn" style="padding: 6px 20px; font-size: 14px; color: #70D3BA;">Выход</button>
                         </form>
                     </li>
                 {% else %}
