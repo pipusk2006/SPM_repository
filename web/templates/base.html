@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>SPM — Анализ риска инсульта</title>
     <link rel="stylesheet" href="{% static 'web/css/web.css' %}">
 </head>
 <body>
-    <header style="background-color: #000; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-        <!-- Левая часть: логотип и подпись -->
-        <div style="display: flex; align-items: center; gap: 12px;">
+    <header style="background-color: #000; padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+        <!-- Левая часть: логотип и подпись снизу -->
+        <div style="display: flex; flex-direction: column; align-items: flex-start;">
             <img src="{% static 'web/logo.png' %}" alt="SPM Logo" style="height: 40px;">
-            <div style="color: #d2d2d7; font-size: 16px;">Stroke risk analysis service</div>
+            <div style="color: #70D3BA; font-size: 14px; margin-top: 8px;">Stroke risk analysis service</div>
         </div>
 
         <!-- Правая часть: навигация -->
@@ -50,12 +50,11 @@
         {% endblock %}
     </main>
 
-    <footer>
-        <div style="text-align: center;">
-            <p style="margin: 0;">&copy; 2025 Moscow, Sber 21</p>
-        </div>
+    <footer style="background-color: #000; color: #fff; padding: 40px 20px; text-align: center; font-size: 16px;">
+        <p style="margin: 0;">&copy; 2025 Moscow, Sber 21</p>
     </footer>
 </body>
 </html>
+
 
 
