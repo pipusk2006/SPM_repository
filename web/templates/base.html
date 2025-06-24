@@ -2,122 +2,125 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>SPM — Анализ риска инсульта</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{% static 'web/favicon.png' %}">
-    <link rel="stylesheet" href="{% static 'web/css/web.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: 'IBM Plex Sans', sans-serif;
-            background-color: #000;
-        }
+  <meta charset="UTF-8">
+  <title>SPM — Анализ риска инсульта</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="{% static 'web/favicon.png' %}">
+  <link rel="stylesheet" href="{% static 'web/css/web.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'IBM Plex Sans', sans-serif;
+      background-color: #000;
+    }
 
-        main {
-            margin: 0;
-            padding: 0;
-        }
+    main {
+      margin: 0;
+      padding: 0;
+    }
 
-        header {
-            background-color: rgba(0, 0, 0, 0.85);
-            padding: 16px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    header {
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 16px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        .header-left {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 4px;
-        }
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
 
-        .header-left img {
-            height: 40px;
-        }
+    .header-left img {
+      height: 40px;
+    }
 
-        .header-subtitle {
-            color: #70D3BA;
-            font-size: 13px;
-        }
+    .header-subtitle {
+      color: #70D3BA;
+      font-size: 13px;
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 24px;
-            margin: 0;
-            padding: 0;
-        }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+      margin: 0;
+      padding: 0;
+    }
 
-        nav a,
-        nav button.custom-btn {
-            display: inline-flex;
-            align-items: center;
-            color: #70D3BA;
-            text-decoration: none;
-            font-weight: 500;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            padding: 6px 20px;
-        }
+    nav li {
+      display: flex;
+      align-items: center;
+    }
 
-        nav a:hover,
-        nav button.custom-btn:hover {
-            text-decoration: underline;
-        }
+    nav a, nav button.custom-btn {
+      display: inline-flex;
+      align-items: center;
+      color: #70D3BA;
+      text-decoration: none;
+      font-weight: 500;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 6px 20px;
+    }
 
-        footer {
-            background-color: rgba(0, 0, 0, 0.85);
-            text-align: center;
-            color: #ccc;
-            padding: 20px 0;
-            font-size: 14px;
-        }
+    nav a:hover, nav button.custom-btn:hover {
+      text-decoration: underline;
+    }
 
-        form.logout-form {
-            display: inline;
-        }
-    </style>
+    form.logout-form {
+      margin: 0;
+    }
+
+    footer {
+      background-color: rgba(0, 0, 0, 0.85);
+      text-align: center;
+      color: #ccc;
+      padding: 20px 0;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="header-left">
-            <img src="{% static 'web/logo.png' %}" alt="SPM Logo">
-            <div class="header-subtitle">Stroke risk analysis service</div>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="{% url 'web:home' %}" class="custom-btn">Главная</a></li>
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'web:profile' %}" class="custom-btn">Профиль</a></li>
-                    <li>
-                        <form action="{% url 'web:logout' %}" method="post" class="logout-form">
-                            {% csrf_token %}
-                            <button type="submit" class="custom-btn">Выход</button>
-                        </form>
-                    </li>
-                {% else %}
-                    <li><a href="{% url 'web:login' %}" class="custom-btn">Вход</a></li>
-                    <li><a href="{% url 'web:register' %}" class="custom-btn">Регистрация</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-    </header>
+  <header>
+    <div class="header-left">
+      <img src="{% static 'web/logo.png' %}" alt="SPM Logo">
+      <div class="header-subtitle">Stroke risk analysis service</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="{% url 'web:home' %}">Главная</a></li>
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'web:profile' %}">Профиль</a></li>
+          <li>
+            <form action="{% url 'web:logout' %}" method="post" class="logout-form">
+              {% csrf_token %}
+              <button type="submit" class="custom-btn">Выход</button>
+            </form>
+          </li>
+        {% else %}
+          <li><a href="{% url 'web:login' %}">Вход</a></li>
+          <li><a href="{% url 'web:register' %}">Регистрация</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
 
-    <footer>
-        <p>&copy; 2025 Moscow, Sber 21</p>
-    </footer>
+  <footer>
+    <p>&copy; 2025 Moscow, Sber 21</p>
+  </footer>
 </body>
 </html>
 
