@@ -2,18 +2,25 @@
 {% load static %}
 
 {% block content %}
-<!-- Подключаем шрифт -->
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
+    main {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
     .hero-bg {
-        background: url("{% static 'web/bg.jpg' %}") no-repeat center center fixed;
+        position: relative;
+        width: 100vw;
+        height: calc(100vh - 100px); /* вся высота без footer + header */
+        background: url("{% static 'web/bg.jpg' %}") no-repeat center center;
         background-size: cover;
-        min-height: calc(100vh - 100px); /* учитываем header и footer */
         display: flex;
-        justify-content: flex-start;
         align-items: center;
-        padding: 60px 40px;
+        justify-content: flex-start;
+        padding: 60px;
+        box-sizing: border-box;
     }
 
     .home-content {
@@ -89,6 +96,7 @@
     </div>
 </div>
 {% endblock %}
+
 
 
 
