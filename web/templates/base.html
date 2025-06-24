@@ -4,26 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPM — Анализ риска инсульта</title>
+    <title></title>
     <link rel="stylesheet" href="{% static 'web/css/web.css' %}">
 </head>
 <body>
-    <header>
-        <!-- Логотип -->
-        <div style="text-align: center; padding: 20px 0;">
-            <img src="{% static 'web/logo.png' %}" alt="SPM Logo" style="height: 48px;">
-            <div style="color: #70D3BA; font-size: 14px; margin-top: 8px;">Stroke risk analysis service</div>
+    <header style="background-color: #000; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+        <!-- Левая часть: логотип и подпись -->
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <img src="{% static 'web/logo.png' %}" alt="SPM Logo" style="height: 40px;">
+            <div style="color: #d2d2d7; font-size: 14px;">Stroke risk analysis service</div>
         </div>
 
+        <!-- Правая часть: навигация -->
         <nav>
-            <ul>
+            <ul style="list-style: none; display: flex; gap: 24px; margin: 0; padding: 0; align-items: center;">
                 <li><a href="{% url 'web:home' %}">Главная</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'web:profile' %}">Профиль</a></li>
                     <li>
                         <form action="{% url 'web:logout' %}" method="post" style="display:inline;">
                             {% csrf_token %}
-                            <button type="submit" class="custom-btn" style="padding: 6px 20px; margin: 0; font-size: 14px;">Выход</button>
+                            <button type="submit" class="custom-btn" style="padding: 6px 20px; font-size: 14px;">Выход</button>
                         </form>
                     </li>
                 {% else %}
@@ -56,4 +57,5 @@
     </footer>
 </body>
 </html>
+
 
