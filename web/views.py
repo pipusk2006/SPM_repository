@@ -86,3 +86,6 @@ def logout_view(request):
         messages.success(request, 'Вы успешно вышли из аккаунта!')
         return redirect('web:home')
     return render(request, 'web/logout.html')
+
+def input_data(request):
+    return render(request, 'web/input_data.html')
