@@ -1,50 +1,53 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Анализ риска инсульта</title>
-        <link rel="stylesheet" href="/static/web/css/web.css">
-    </head>
-    <body>
-        <header>
-            <h1>
-                <span>SPM</span><br>
-                <span>Сервис анализа риска инсульта</span>
-            </h1>
-            <nav>
-                <ul>
-                    <li><a href="{% url 'web:home' %}">Главное меню</a></li>
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'web:profile' %}">Профиль</a></li>
-                        <li>
-                            <form action="{% url 'web:logout' %}" method="post" style="display:inline;">
-                                {% csrf_token %}
-                                <button type="submit" class="custom-btn" style="padding: 5px 15px; width: auto; margin: 0;">Выход</button>
-                            </form>
-                        </li>
-                    {% else %}
-                        <li><a href="{% url 'web:login' %}">Вход</a></li>
-                        <li><a href="{% url 'web:register' %}">Регистрация</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
-        </header>
-        <main>
-            {% if messages %}
-                <div class="container mt-3">
-                    <div class="message-container">
-                        {% for message in messages %}
-                            <div class="alert">{{ message }}</div>
-                        {% endfor %}
-                    </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPM — Анализ риска инсульта</title>
+    <link rel="stylesheet" href="/static/web/css/web.css">
+</head>
+<body>
+    <header>
+        <h1>
+            <span style="display: block; font-size: 32px; font-weight: 600;">SPM</span>
+            <span style="display: block; font-size: 16px; font-weight: 400; margin-top: 4px; color: #d2d2d7;">Сервис анализа риска инсульта</span>
+        </h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'web:home' %}">Главная</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'web:profile' %}">Профиль</a></li>
+                    <li>
+                        <form action="{% url 'web:logout' %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="custom-btn" style="padding: 6px 20px; margin: 0; font-size: 14px;">Выход</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'web:login' %}">Вход</a></li>
+                    <li><a href="{% url 'web:register' %}">Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% if messages %}
+            <div class="container">
+                <div class="message-container">
+                    {% for message in messages %}
+                        <div class="alert">{{ message }}</div>
+                    {% endfor %}
                 </div>
-            {% endif %}
-            {% block content %}
-            {% endblock %}
-        </main>
-        <footer>
-            <p>2025 Москва, Сбер 21</p>
-        </footer>
-    </body>
+            </div>
+        {% endif %}
+        
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Москва, Сбер 21</p>
+    </footer>
+</body>
 </html>
